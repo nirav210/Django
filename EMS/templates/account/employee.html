@@ -1,0 +1,62 @@
+{% extends "account/dashbord.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Employee" "employee" %}
+{% endblock %}
+    
+    
+{% block content %}
+  {% render_breadcrumbs %}
+  <div class="content">
+      <div class="animated fadeIn">
+          <div class="row">
+              <div class="col-lg-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">{{message}}</div>
+                    {% endfor %}
+                  <div class="card">
+                      <div class="card-header">
+                            <strong class="card-title">Employee</strong>
+                            <div class="float-lg-right">
+                                <a href="{% url 'create-employee' %}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"> Add New</i></a>
+                            </div>
+                      </div>
+                      <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone No</th>
+                                        <th scope="col">Salary</th>
+                                        <th scope="col">Designation</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in detail %}                                
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ employee.name }}</td>
+                                        <td>{{ employee.user.email }}</td>
+                                        <td>{{ employee.phone_number }}</td>
+                                        <td>{{ employee.salary }}</td>
+                                        <td>{{ employee.designation}}</td>
+                                        
+
+                                    </tr>
+                                {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>    
+{% endblock content %}
+
+

@@ -1,0 +1,121 @@
+{% extends "account/employee.html" %}
+
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Create Employee" "create-employee" %}
+{% endblock %}
+
+{% block content %}
+{% render_breadcrumbs %}
+<div class="content">
+    {% if createuser.errors or createemployee.errors %}
+        {% for field in createuser %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ field.label }}:{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for field in createemployee %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ field.label }}:{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    <div class="new_employee">
+        <h5>Employee Create</h5>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name" class="col-form-label">Name</label>
+                    {{createemployee.name}}
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-form-label">E-Mail Address</label>
+                    {{createuser.email}}
+                </div>
+
+                <div class="form-group ">
+                    <label for="password" class="col-form-label">Password</label>
+                    {{createuser.password1}}
+                </div>
+
+                <div class="form-group ">
+                    <label for="password-confirm" class="col-form-label">Confirm Password</label>
+                    {{createuser.password2}}
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="col-form-label">Phone Number</label>
+                    {{createemployee.phone_number}}
+                </div>
+
+                <!-- <div class="form-group ">
+                    <label for="image" class="col-form-label">Image</label>
+                    <input id="image" type="file" class="form-control " name="image" required>
+                </div>  -->
+
+                
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username" class="col-form-label">User Name</label>
+                    {{createuser.username}}
+                </div>
+                
+                <div class="form-group">
+                    <label for="designation" class="col-form-label">Designation</label>
+                    {{createemployee.designation}}
+                        <!-- <select name="designation" class="form-control " required>
+                            <option>-- select Designation --</option>
+                            <option value="Senior Web Developer" > Senior Web Developer </option>
+                            <option value="Junior Web Developer"  selected='selected'  > Junior Web Developer </option>
+                            <option value="Designer" > Designer </option>
+                            <option value="Tester" > Tester </option>
+                        </select> -->
+                </div>
+
+                <div class="form-group">
+                    <label for="salary" class="col-form-label">Salary</label>
+                    {{createemployee.salary}}
+                </div>
+
+                <div class="form-group ">
+                    <label for="bank_name" class="col-form-label">Bank Name</label>
+                    {{createemployee.bank_name}}
+                </div> 
+
+                <div class="form-group ">
+                    <label for="account_number" class="col-form-label">Account Number</label>
+                    {{createemployee.account_number}}
+                </div>
+
+                <!-- <div class="form-group ">
+                    <label for="pan_card_number" class="col-form-label">Pan Card Nnumber</label>
+                    <input id="pan_card_number" type="text" class="form-control " name="pan_card_number" value="">
+                </div> -->
+                
+                <!-- <div class="form-group ">
+                    <label for="image" class="col-form-label">Document</label>
+                    <input id="document" type="file" class="form-control " name="document" multiple>
+                </div> -->
+                
+            </div>
+            <div class="col-md-12 text-right">
+                <a href="{% url 'employee' %}" class="btn btn-primary" > <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </a>
+                <button type="submit" class="btn btn-primary"> Save </button>
+            </div>
+        </div> 
+    </form>
+</div>
+{% endblock %}

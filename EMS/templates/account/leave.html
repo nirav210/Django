@@ -1,0 +1,59 @@
+{% extends "account/dashbord.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Show Leave" "leave" %}
+{% endblock %}
+
+{% block content %}
+  {% render_breadcrumbs %}
+  <div class="content">
+      <div class="animated fadeIn">
+          <div class="row">
+              <div class="col-lg-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">{{message}}</div>
+                    {% endfor %}
+                  <div class="card">
+                      <div class="card-header">
+                            <strong class="card-title">Leave</strong>
+                            <!-- <div class="float-lg-right">
+                                <a href="{% url 'create-holiday' %}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"> Add New</i></a>
+                            </div> -->
+                      </div>
+                      <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">From Date</th>
+                                        <th scope="col">To Date</th>
+                                        <th scope="col">Leave Day</th>
+                                        <th scope="col">Reason</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for leave in detail %}                                
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ leave.user.name }}</td>
+                                        <td>{{ leave.from_date }}</td>
+                                        <td>{{ leave.to_date }}</td>
+                                        <td>{{ leave.leavedays }}</td>
+                                        <td>{{ leave.reason }}</td>
+                                        <td>{{ leave.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>    
+{% endblock content %}

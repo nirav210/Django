@@ -1,0 +1,53 @@
+{% extends "account/employee-dashbord.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Holiday" "holiday" %}
+{% endblock %}
+
+{% block content %}
+  {% render_breadcrumbs %}
+  <div class="content">
+      <div class="animated fadeIn">
+          <div class="row">
+              <div class="col-lg-12">
+                    {% for message in messages %}
+                        <div class="alert alert-success" role="alert">{{message}}</div>
+                    {% endfor %}
+                  <div class="card">
+                      <div class="card-header">
+                            <strong class="card-title">Holiday</strong>
+                      </div>
+                      <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">From Date</th>
+                                        <th scope="col">To Date</th>
+                                        <th scope="col">Holiday</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for holiday in detail %}                                
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ holiday.name }}</td>
+                                        <td>{{ holiday.from_date }}</td>
+                                        <td>{{ holiday.to_date }}</td>
+                                        <td>{{ holiday.totaldays }}</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>    
+{% endblock content %}

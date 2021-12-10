@@ -1,0 +1,53 @@
+{% extends "account/holiday.html" %}
+
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Create Holiday" "create-holiday" %}
+{% endblock %}
+
+{% block content %}
+{% render_breadcrumbs %}
+<div class="content">
+    {% if createholiday.errors %}
+        {% for field in createholiday %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ field.label }}:{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <div class="new_employee">
+        <h5>Holiday Create</h5>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <div class="form-group ">
+                <label for="name" class="col-form-label">Name</label>
+                {{createholiday.name}}
+            </div>
+
+            <div class="form-group "id="sandbox-container">
+                <label for="from_date" class="col-form-label">From Date</label>
+                    <!-- <input id="from_date" type="date" class="form-control " name="from_date" value="" placeholder="From Date" required> -->
+                {{createholiday.from_date}}
+            </div>
+
+            <div class="form-group " id="sandbox-container">
+                <label for="to_date" class="col-form-label">To Date</label>
+                    <!-- <input id="to_date" type="date" class="form-control " name="to_date" value="" placeholder="From Date" required> -->
+                {{createholiday.to_date}}
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6 text-right">
+            <a href="{% url 'holiday' %}" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back </a>
+            <button type="submit" class="btn btn-primary"> Save </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
